@@ -1,0 +1,25 @@
+//created on: 10-Apr-2019
+package rules.content
+
+import com.sample.Notification;
+import com.sample.Trip;
+import com.sample.Trip.RouteType;
+
+rule "International Dinning"
+	ruleflow-group "content"
+    when
+    	t: Trip( route == RouteType.INTERNATIONAL )
+    	n: Notification( eligibile )
+    then
+        n.addContent("INTERNATIONAL-DINNING");
+
+end
+
+rule "Default Contents"
+	ruleflow-group "content"
+    when
+        n: Notification( eligibile )
+    then
+        n.addContent("HEADER");
+        n.addContent("FOOTER");
+end

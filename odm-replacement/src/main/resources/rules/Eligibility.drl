@@ -1,0 +1,29 @@
+//created on: 10-Apr-2019
+package rules.eligibility
+
+import com.sample.Notification;
+import com.sample.Booking;
+import com.sample.Guest;
+import com.sample.Booking.BookingType;
+import com.sample.Guest.RewardTier;
+
+
+rule "No email"
+	ruleflow-group "eligibility"
+    when
+        g: Guest( email == null )
+        n: Notification( )
+    then
+    	n.omit("Guest does not have email");
+end
+
+
+rule "GDS booking without reward"
+	ruleflow-group "eligibility"
+    when
+        b: Booking( type == BookingType.GDS )
+        g: Guest( reward == RewardTier.NULL )
+        n: Notification( )
+    then
+    	n.omit("GDS booking without reward");
+end

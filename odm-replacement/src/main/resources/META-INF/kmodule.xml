@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
+    <kbase name="Cognition" packages="rules.cognition">
+        <ksession name="CognitionKS"/>
+    </kbase>
+    <kbase name="Eligibility" packages="rules.eligibility">
+        <ksession name="EligibilityKS"/>
+    </kbase>
+    <kbase name="Content" packages="rules.content">
+        <ksession name="ContentKS"/>
+    </kbase>
+    <kbase name="dtables" packages="dtables">
+        <ksession name="ksession-dtables"/>
+    </kbase>
+    <kbase name="process" packages="process,rules.cognition,rules.eligibility,rules.content">
+        <ksession name="ksession-process"/>
+    </kbase>
+</kmodule>

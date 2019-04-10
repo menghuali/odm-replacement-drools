@@ -1,0 +1,45 @@
+//created on: 10-Apr-2019
+package rules.cognition
+
+import com.sample.Trip;
+import com.sample.Trip.RouteType;
+import com.sample.Booking;
+import com.sample.Booking.BookingType;
+
+rule "Domestic Trip"
+	ruleflow-group "cognition"
+    when
+        t: Trip( originCountry == "Canada" && originCountry == destCountry )
+    then
+        t.setRoute(RouteType.DOMESTIC);
+        update(t);
+end
+
+rule "Trans-border Trip"
+	ruleflow-group "cognition"
+	when
+		t: Trip( (originCountry == "Canada" && destCountry == "US") || (originCountry == "Canada" && destCountry == "US") )
+	then
+		t.setRoute(RouteType.TRANSBODER);
+		update(t);
+end
+
+rule "International Trip"
+	ruleflow-group "cognition"
+	when
+		t: Trip( 
+			(originCountry != "Canada" && originCountry != "US") 
+			|| (destCountry != "Canada" && destCountry != "US") )
+	then
+		t.setRoute(RouteType.INTERNATIONAL);
+		update(t);
+end
+
+rule "GDS Booking"
+	ruleflow-group "cognition"
+    when
+        b: Booking( pcc == "TTY" )
+    then
+        b.setType(BookingType.GDS);
+        update(b);
+end
